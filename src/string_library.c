@@ -106,8 +106,8 @@ int compare_strings(MyString* string1, MyString * string2){
 }
 
 int replace_character(MyString* string, char character_to_replace, char character_to_add){
-    int i = 0; 
-    for(i ; i < string->length; i++){
+    int i; 
+    for(i =0 ; i < string->length; i++){
         if(string->data[i] == character_to_replace)
             break;
     }
@@ -120,7 +120,7 @@ int replace_character(MyString* string, char character_to_replace, char characte
 
 MyString *convert_int_to_string(int number){
     MyString *return_string = (MyString*)malloc(sizeof(MyString));
-    char* data = (char*)malloc(32*sizeof(char));
+    char data[32] ;
     int sign = number;
     int i = 0;
 
@@ -141,14 +141,14 @@ MyString *convert_int_to_string(int number){
         }
     }
     data[i] = '\0';
-        for (int j = 0; j < i / 2; j++) {
+    
+    for (int j = 0; j < i / 2; j++) {
         char temp = data[j];
         data[j] = data[i - j - 1];
         data[i - j - 1] = temp;
     }
 
     *return_string = create_string(data);
-    free(data);
     return return_string;
 }
 
