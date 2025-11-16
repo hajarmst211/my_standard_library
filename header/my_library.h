@@ -60,13 +60,33 @@ int copy_file(char* path_to_file);
 
 int open_file(char* path_to_file, int flags,  mode_t mode);
 
-// 3: Data structure
+// 3: malloc
 
-typedef struct Metadata{
+
+
+#include <stddef.h>
+
+typedef struct MetaData{
     size_t size;
-    int free;// 1 : free , 0 : allocated
-    struct Metadata *next;
-}Metadata;
+    int is_free;
+    struct MetaData *next_chunk;
+    struct MetaData *previous_chunk;
+} MetaData;
 
+extern MetaData* free_chunks_list_head;
+
+MetaData* search_available_chunk(size_t needed_size, MetaData* free_chunks_list_head);
+
+void* remove_allocated_chunk(MetaData** chunk_to_remove);
+
+MetaData* new_allocated_chunk(MetaData* metadata, size_t needed_size);
+
+void* trim_chunk(MetaData* allocated_chunk, size_t needed_size);
+
+void* request_memory_from_os(MetaData* metadata, size_t needed_size);
+
+void* halloc(size_t data_size);
+
+void* free_pointer(void* chunk);
 
 #endif
