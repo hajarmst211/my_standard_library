@@ -1,6 +1,4 @@
 // string_library.c
-#include <stddef.h>
-#include <stdint.h>
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -33,7 +31,6 @@ MyString create_string(char* string){
 
     return new_string;
 }
-
 
 void my_putchar(char single_character){
     int buffer_size= sizeof(char);
@@ -150,6 +147,21 @@ MyString *convert_int_to_string(int number){
 
     *return_string = create_string(data);
     return return_string;
+}
+
+MyString *convert_float_to_string(float number){
+    int int_part = (int)number;
+    int fractional_part = (int)(number - int_part) * 1000000;
+
+    MyString* string_of_int_part = convert_int_to_string(int_part);
+    MyString* string_of_fractional_part = convert_int_to_string(fractional_part);
+
+    MyString dot_string = create_string(".");
+
+    concatenate_string(string_of_int_part, &dot_string);
+    concatenate_string(string_of_int_part, string_of_fractional_part);
+
+    return string_of_int_part;
 }
 
 MyString copy_string(MyString string){

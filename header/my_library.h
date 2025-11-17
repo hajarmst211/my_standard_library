@@ -34,6 +34,8 @@ int replace_character(MyString* string, char character_to_replace, char characte
 
 MyString *convert_int_to_string(int number);
 
+MyString *convert_float_to_string(float number);
+
 MyString copy_string(MyString string);
 
 // 2:files library
@@ -61,8 +63,6 @@ int copy_file(char* path_to_file);
 int open_file(char* path_to_file, int flags,  mode_t mode);
 
 // 3: malloc
-
-
 
 #include <stddef.h>
 
