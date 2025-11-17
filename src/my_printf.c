@@ -41,10 +41,8 @@ void my_printf(char* string, ...){
     MyString buffer = create_string("");
     int length = length_string(string);
     for(int i = 0; i < length ; i++){
-        if(string[i] == '\0'){ 
-            break;
-        }
-        if(string[i] == '%'){
+        if(string[i] == '%')
+        {
             format_specifier(list, &buffer, string[i+1]);
             if(i != length-1) i++;
         }
