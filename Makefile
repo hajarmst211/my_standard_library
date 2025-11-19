@@ -3,10 +3,10 @@ OBJ = object_files
 TESTS = tests
 
 string_library: $(SRC)/string_library.c 
-	gcc -c $(SRC)/string_library.c -o $(OBJ)/string_library.o
+	gcc -c $(SRC)/string_library.c -o $(OBJ)/string_library.o -g
 
 string_test: $(TESTS)/string_test.c $(OBJ)/*.o
-	gcc $(TESTS)/string_test.c $(OBJ)/*.o -Iheader -o $(TESTS)/string_test && $(TESTS)/string_test
+	gcc $(TESTS)/string_test.c $(OBJ)/*.o -Iheader -o $(TESTS)/string_test && $(TESTS)/string_test -g
 
 io_library: $(SRC)/io_library.c
 	gcc -c $(SRC)/io_library.c -o $(OBJ)/io_library.o

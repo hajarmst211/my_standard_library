@@ -51,6 +51,9 @@ void concatenate_string(MyString* string1, MyString* string2){
     if(available_space < string2->length + 1){
         int size_needed = string1->length + string2->length + 1;
         char* new_data = (char*)realloc(string1->data , size_needed);
+        if(!new_data){
+            return;
+        }
         string1->data= new_data;
         string1->capacity = size_needed;
     }
@@ -59,6 +62,7 @@ void concatenate_string(MyString* string1, MyString* string2){
         string1->data[i + string1->length] = string2->data[i];
     }
     string1->data[string1->length + string2-> length] = '\0';
+    string1->length = length_string(string1->data);
 }
 
 int insert_character(MyString* string, char character, int index){
@@ -151,16 +155,16 @@ MyString *convert_int_to_string(int number){
 
 MyString *convert_float_to_string(float number){
     int int_part = (int)number;
-    int fractional_part = (int)(number - int_part) * 1000000;
+    float fractional_part = (number - int_part) * 10000 + 0.5f;
 
     MyString* string_of_int_part = convert_int_to_string(int_part);
-    MyString* string_of_fractional_part = convert_int_to_string(fractional_part);
+    MyString* string_of_fractional_part = convert_int_to_string((int)fractional_part);
 
     MyString dot_string = create_string(".");
 
     concatenate_string(string_of_int_part, &dot_string);
     concatenate_string(string_of_int_part, string_of_fractional_part);
-
+    free(dot_string.data);
     return string_of_int_part;
 }
 
@@ -169,4 +173,3 @@ MyString copy_string(MyString string){
     string_copy = create_string(string.data);
     return string_copy;
 }
-
